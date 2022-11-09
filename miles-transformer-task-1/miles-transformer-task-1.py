@@ -29,7 +29,11 @@ def load_input(df):
     
     ret = []
     for _, i in df.iterrows():
-        ret += [{'text': ' '.join(i['postText']) + ' - ' + i['targetTitle'] + ' ' + ' '.join(i['targetParagraphs']), 'uuid': i['uuid']}]
+        text = ' '.join(i['postText'])
+
+        simplified_text = simplifier.simplify_text(text.rstrip('\n'))
+        
+        ret += [{'text': simplified_text, 'uuid': i['uuid']}]
     
     return pd.DataFrame(ret)
 
@@ -43,10 +47,8 @@ def predict(df):
     labels = ['phrase', 'passage', 'multi']
     model = ClassificationModel('deberta', '/model', use_cuda=use_cuda())
 
-    simplified_text = simplifier.simplify_text(df['text'].rstrip("\n"))
-
     uuids = list(df['uuid'])
-    texts = list(simplified_text)
+    texts = list(df['text'])
     predictions = model.predict(texts)[1]
     
     for i in range(len(df)):
