@@ -29,9 +29,20 @@ def load_input(df):
     
     ret = []
     for _, i in df.iterrows():
-        text = ' '.join(i['postText'])
+        # text = i['targetTitle']
+        text = (i['targetTitle'] + ' ' + ' '.join(i['targetParagraphs'])).rstrip('\n')
+        print(text)
 
-        simplified_text = simplifier.simplify_text(text.rstrip('\n'))
+        simplified_text = ""
+
+        while len(text) > 512: 
+            short_text = text[:512]
+            text = text[512:]
+            simplified_text += simplifier.simplify_text(short_text)
+
+        simplified_text += simplifier.simplify_text(text)
+        
+        print(simplified_text)
         
         ret += [{'text': simplified_text, 'uuid': i['uuid']}]
     
