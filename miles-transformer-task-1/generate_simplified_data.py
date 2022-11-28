@@ -11,7 +11,7 @@ from simplifier import simplifier
 config.lang = "en"
 models.embeddings = models.load_embeddings(config.lang)
 
-simplify_fields = ["targetTitle", "targetParagraphs"]
+simplify_fields = ["targetTitle"]
 
 def parse_args():
     parser = argparse.ArgumentParser(description='')
@@ -58,8 +58,6 @@ async def simplify_data(input_file, output_file):
                     tasks.append(create_task(simplify_txt(part, False, i, f, i2)))
             elif isinstance(data_compl, str):
                 tasks.append(create_task(simplify_txt(data_compl, True, i, f)))
-
-            data_new[i][f] = data_simple
 
     while tasks:
         done, tasks = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
