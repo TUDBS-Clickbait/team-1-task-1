@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import json
+import datetime
 import asyncio
 from asyncio import create_task
 
@@ -59,16 +60,19 @@ async def simplify_data(input_file, output_file):
             elif isinstance(data_compl, str):
                 tasks.append(create_task(simplify_txt(data_compl, True, i, f)))
 
-    while tasks:
-        done, tasks = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
-        txt_simple, was_str, i, f, list_index = done.pop().result()
+    with open(f'{output_file}.{datetime.datetime.now().isoformat(timespec="seconds")}.part', 'w') as out:
+        while tasks:
+            done, tasks = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
+            txt_simple, was_str, i, f, list_index = done.pop().result()
 
-        print("Finished 1 task.")
+            print("Finished 1 task.")
 
-        if not was_str:
-            data_new[i][f][list_index] = txt_simple
-        else:
-            data_new[i][f] = data_simple
+            if not was_str:
+                data_new[i][f][list_index] = txt_simple
+            else:
+                data_new[i][f] = data_simple
+
+            out.write(json.dumps(data_new[i]) + '\n')
 
             
     with open(output_file, 'w') as out:
