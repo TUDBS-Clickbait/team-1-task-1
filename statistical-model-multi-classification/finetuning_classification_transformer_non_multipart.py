@@ -1,4 +1,4 @@
-from transformers import AutoTokenizer, TrainingArguments, Trainer, DefaultDataCollator, AutoModelForSequenceClassification
+from transformers import AutoTokenizer, TrainingArguments, Trainer,  DataCollatorForTokenClassification, AutoModelForSequenceClassification
 import pandas as pd
 from datasets import Dataset, DatasetDict, ClassLabel, Features, Value
 import numpy as np 
@@ -36,23 +36,23 @@ def preprocess(examples):
     postTexts = [p.strip() for p in examples["postText"]]
     inputs = tokenizer(
         postTexts,
-        examples["postPlatform"],
+        #examples["postPlatform"],
         examples["targetParagraphs"],
-        examples["targetTitle"],
+        #examples["targetTitle"],
         padding="max_length",
         truncation = "longest_first",
     )       
     return inputs
 tokenized_dataset = datasetDict.map(preprocess, batched=True, remove_columns=datasetDict["train"].column_names)
 
-data_collator = DefaultDataCollator()
+data_collator = DataCollatorForTokenClassification(tokenizer=tokenizer)
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = AutoModelForSequenceClassification.from_pretrained("roberta-base", num_labels=2).to(device)
 
 training_args = TrainingArguments(
     output_dir="finetuned_classification_non_multi",
     evaluation_strategy="epoch",
-    per_device_train_batch_size=4096,
+    per_device_train_batch_size=8,
 )
 
 trainer = Trainer(
