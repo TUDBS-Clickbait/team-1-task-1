@@ -52,6 +52,7 @@ model = AutoModelForSequenceClassification.from_pretrained("roberta-base", num_l
 training_args = TrainingArguments(
     output_dir="finetuned_classification_non_multi",
     evaluation_strategy="epoch",
+    per_device_train_batch_size=4096,
 )
 
 trainer = Trainer(
