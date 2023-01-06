@@ -41,11 +41,13 @@ def predict(df):
     predictedSpoilerTypes = pd.DataFrame({'predicted': predictedSpoilerTypesArray})
     mp_data['predicted'] = predictedSpoilerTypes
 
-    df_multi = mp_data['predicted'] == "multi"
-    df_non_multi = mp_data['predicted'] == "non-multi"
+    df_multi = mp_data[mp_data['predicted'] == "multi"]
+    df_non_multi = mp_data[mp_data['predicted'] == "non-multi"]
 
     labels = ['phrase', 'passage', 'multi']
-    model = ClassificationModel('deberta', 'non-multo.model', use_cuda=True)
+    model = ClassificationModel('deberta', './non-multi-model', use_cuda=False)
+
+    print(df_non_multi)
 
     uuids = list(df_non_multi['uuid'])
     texts = list(df_non_multi['text'])
