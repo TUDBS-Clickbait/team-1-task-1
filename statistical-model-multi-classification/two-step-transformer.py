@@ -48,9 +48,8 @@ def predict(df):
     labels = ['phrase', 'passage', 'multi']
 
     use_cuda = torch.cuda.is_available()
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     
-    model = ClassificationModel('deberta', './non-multi-model', use_cuda=use_cuda,  cuda_device=device)
+    model = ClassificationModel('deberta', './non-multi-model', use_cuda=use_cuda)
 
     uuids = list(df_non_multi['uuid'])
     texts = list(df_non_multi['text'])
