@@ -5,7 +5,8 @@ import pandas as pd
 import numpy as np
 import multipart_detection
 import pickle
-from simpletransformers.classification import ClassificationModel
+import torch
+from transformers import ClassificationModel
 
 
 def parse_args():
@@ -45,12 +46,17 @@ def predict(df):
     df_non_multi = mp_data[mp_data['predicted'] == "non-multi"]
 
     labels = ['phrase', 'passage', 'multi']
-    model = ClassificationModel('deberta', './non-multi-model', use_cuda=False)
 
-    print(df_non_multi)
+    use_cuda = torch.cuda.is_available()
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    
+    model = ClassificationModel('deberta', './non-multi-model', use_cuda=use_cuda,  cuda_device=device)
 
     uuids = list(df_non_multi['uuid'])
     texts = list(df_non_multi['text'])
+
+    print(texts)
+
     predictions = model.predict(texts)[1]
 
     for i, ds in df_multi.iterrows():
