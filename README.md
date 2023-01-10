@@ -27,7 +27,20 @@
 **code:**
 * [feature engineering](statistical-model-multi-classification/multipart_spoiler_detection_model_features.ipynb)
 
-* [feature engineering refactored](statistical-model-multi-classification/multipart_detection.py)
+* [feature engineering refactored](statistical-model-multi-classification/multipart_features.py)
 
 * [feature engineering, training and evaulation of the Gradient Boosting Classifier](statistical-model-multi-classification/multipart_spoiler_detection_model.ipynb)
+
 * [two-step pipeline](statistical-model-multi-classification/two-step-transformer.py)
+
+**Running in Docker:**
+
+(Optional) Build:
+
+1. `cd statistical-model-multi-classification`
+2. `docker build -t ghcr.io/tudbs-clickbait/team-1-task-1:two-step .`
+3. (optional, push image) `docker push ghcr.io/tudbs-clickbait/team-1-task-1:two-step`
+
+Run:
+
+1. `docker run -v ${PWD}/data:/data ghcr.io/tudbs-clickbait/team-1-task-1:two-step /opt/app/two-step-transformer.py --input=/data/validation_short.jsonl --output=/data/out.jsonl`

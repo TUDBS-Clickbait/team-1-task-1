@@ -1,6 +1,8 @@
 import re
 import nltk
 
+nltk.data.path.append('/opt/app/nltk_data/')
+
 numbers = ['2','3','4','5','6','7','8','9']
 number_words = ['two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten']
 currency_words = ['euro', 'yen', 'Euro','Yen', 'US-Dollar', 'USD', 'usd', 'eur', 'EUR']
