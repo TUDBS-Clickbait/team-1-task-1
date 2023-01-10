@@ -17,6 +17,26 @@ Relevant for submission is trhe "two-step-transformer" of approach 3. Instructio
 
 ## Approach 2 - text simplification
 
+**steps:** 
+
+- Simplify the input text before predicting the spoiler type
+- Either by just replacing difficult words ([MILES](https://github.com/Kvasirs/MILES))
+- Or replacing words and reformulating ([MUSS](https://github.com/facebookresearch/muss))
+- Predict spoiler type using the baseline transformer
+
+**goals:**
+
+- Better accuracy due to a smaller set of words / reduced complexity
+
+**code:**
+* [MILES transformer](miles-transformer-task-1)
+* [MUSS transformer](muss-transformer-task-1)
+
+**results:**
+
+- Only replacing difficult words did not enhance the accuracy.
+- Due to problems with the libraries, the approach has been discarded.
+
 ## Approach 3 - multipart classification model (extension of approach 1)
 **steps:**
 * Find multipart spoiler with a Gradient Boosting classification model trained on text features of the attributes postText and targetParagraphs.
@@ -34,6 +54,11 @@ Relevant for submission is trhe "two-step-transformer" of approach 3. Instructio
 * [feature engineering, training and evaulation of the Gradient Boosting Classifier](statistical-model-multi-classification/multipart_spoiler_detection_model.ipynb)
 
 * [two-step pipeline](statistical-model-multi-classification/two-step-transformer.py)
+
+**results:**
+
+- Faster than baseline, as multipart spoilers are classified within seconds
+- Probably similar or better accuracy, depending on the dataset
 
 **Running in Docker:**
 
