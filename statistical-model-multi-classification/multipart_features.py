@@ -90,8 +90,8 @@ def number_of_articles(inputString):
     return sum(map(lambda l: l[1] == 'DT', tags))
 
 def add_features(df):
-    df['tags'] = df['tags'].apply(lambda v: v[0])
-    df['spoilerType'] = df['tags'].apply(lambda r: 'multi' if r == 'multi' else 'non-multi')
+    # df['tags'] = df['tags'].apply(lambda v: v[0])
+    # df['spoilerType'] = df['tags'].apply(lambda r: 'multi' if r == 'multi' else 'non-multi')
     df['postText'] = df['postText'].apply(lambda p: p[0])
     df['postTextContainsNumber'] = df['postText'].apply(lambda p: 1 if has_number(p) == True else 0)
     df['postTextContainsNumberWord'] = df['postText'].apply(lambda p: 1 if has_number_word(p) == True else 0)

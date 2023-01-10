@@ -36,7 +36,7 @@ def predict(df):
 
     mp_data = multipart_features.add_features(df)
 
-    model = pickle.load(open("multi.model", 'rb'))
+    model = pickle.load(open("/opt/app/multi.model", 'rb'))
     validationDataFeatureSet = mp_data[['postTextContainsNumber', 'postTextContainsNumberWord', 'postTextContainsCurrencyWord', 'postTextContainsCurrencySign', 'postTextAmountWords', 
     'postTextAmountLowerCase', 'postTextAmountUpperCase', 'postTextAmountLetters', 'postTextAmountCommas', 'postTextAmountExclMarks', 'postTextAmountDots', 'postTextAmountQuestionMarks', 
     'postTextAmountQuotationMarks', 'targetParagraphsContainNumber', 'targetParagraphsContainNumberWord', 'targetParagraphsContainCurrencyWord', 'targetParagraphsContainCurrencySign', 
@@ -54,12 +54,12 @@ def predict(df):
 
     use_cuda = torch.cuda.is_available()
     
-    model = ClassificationModel('deberta', './non-multi-model', use_cuda=use_cuda)
+    model = ClassificationModel('deberta', '/opt/app/non-multi-model', use_cuda=use_cuda)
 
     uuids = list(df_non_multi['uuid'])
     texts = list(df_non_multi['text'])
 
-    print(texts)
+    print(f"Processing {len(texts)} entries.")
 
     predictions = model.predict(texts)[1]
 
