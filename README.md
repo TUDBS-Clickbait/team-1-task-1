@@ -41,7 +41,8 @@ Relevant for submission is trhe "two-step-transformer" of approach 3. Instructio
 
 1. `cd statistical-model-multi-classification`
 2. `docker build -t ghcr.io/tudbs-clickbait/team-1-task-1:two-step .`
-3. (optional, push image) `docker push ghcr.io/tudbs-clickbait/team-1-task-1:two-step`
+3. (optional) [Login to GitHub registry ](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-to-the-container-registry)
+4. (optional, push image) `docker push ghcr.io/tudbs-clickbait/team-1-task-1:two-step`
 
 Run:
 
