@@ -1,4 +1,5 @@
 import re
+import nltk
 
 numbers = ['2','3','4','5','6','7','8','9']
 number_words = ['two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten']
@@ -66,13 +67,29 @@ def contains_explicit_enumeration(targetParagraphs):
             lastNumber = currentNumber;
     return True if predIsSmallerCounter >= 2 else False
 
-def add_features(df):
-    
-    print(df)
+def number_of_nouns(inputString):
+    tokens = nltk.word_tokenize(inputString, language='english')
+    tags = nltk.pos_tag(tokens)
+    return sum(map(lambda l: l[1] == 'NN' or l[1] == 'NNS', tags))
 
+def number_of_adjectives(inputString):
+    tokens = nltk.word_tokenize(inputString, language='english')
+    tags = nltk.pos_tag(tokens)
+    return sum(map(lambda l: l[1] == 'JJ' or l[1] == 'RB', tags))
+
+def number_of_verbs(inputString):
+    tokens = nltk.word_tokenize(inputString, language='english')
+    tags = nltk.pos_tag(tokens)
+    return sum(map(lambda l: l[1] == 'VBN' or l[1] == 'VBP', tags))
+
+def number_of_articles(inputString):
+    tokens = nltk.word_tokenize(inputString, language='english')
+    tags = nltk.pos_tag(tokens)
+    return sum(map(lambda l: l[1] == 'DT', tags))
+
+def add_features(df):
     df['tags'] = df['tags'].apply(lambda v: v[0])
     df['spoilerType'] = df['tags'].apply(lambda r: 'multi' if r == 'multi' else 'non-multi')
-
     df['postText'] = df['postText'].apply(lambda p: p[0])
     df['postTextContainsNumber'] = df['postText'].apply(lambda p: 1 if has_number(p) == True else 0)
     df['postTextContainsNumberWord'] = df['postText'].apply(lambda p: 1 if has_number_word(p) == True else 0)
@@ -87,6 +104,8 @@ def add_features(df):
     df['postTextAmountDots'] = df['postText'].apply(lambda p: amount_dots(p))
     df['postTextAmountQuestionMarks'] = df['postText'].apply(lambda p: amount_questionmarks(p))
     df['postTextAmountQuotationMarks'] = df['postText'].apply(lambda p: amount_quotationmarks(p))
+    df['postTextNouns'] = df['postText'].apply(lambda p: number_of_nouns(p))
+    df['postTextArticles'] = df['postText'].apply(lambda p: number_of_articles(p))
 
     df['targetParagraphsConcat'] = df['targetParagraphs'].apply(lambda p: "".join(p)) 
     df['targetParagraphsContainNumber'] = df['targetParagraphsConcat'].apply(lambda p: 1 if has_number(p) == True else 0)
