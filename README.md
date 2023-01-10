@@ -1,5 +1,7 @@
 # TASK 1
 
+Relevant for submission is trhe "two-step-transformer" of approach 3. Instructions for running in docker can be found below.
+
 ## Approach 1 - multipart majority vote
 **steps:** 
 * Find multipart spoiler with a majority vote of certain text features of the attributes postText and targetParagraphs.
