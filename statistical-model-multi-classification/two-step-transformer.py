@@ -6,7 +6,7 @@ import numpy as np
 import multipart_detection
 import pickle
 import torch
-from transformers import ClassificationModel
+from simpletransformers.classification import ClassificationModel
 
 
 def parse_args():
