@@ -25,9 +25,9 @@
 * Improve the efficiency due to less time for training and forward-pass of the Gradient Boosting classification model than the transformer baseline needs.
 
 **code:**
-* [feature engineering] (statistical-model-multi-classification/multipart_spoiler_detection_model_features.ipynb)
+* [feature engineering](statistical-model-multi-classification/multipart_spoiler_detection_model_features.ipynb)
 
-* [feature engineering refactored] (statistical-model-multi-classification/multipart_detection.py)
+* [feature engineering refactored](statistical-model-multi-classification/multipart_detection.py)
 
 * [feature engineering, training and evaulation of the Gradient Boosting Classifier](statistical-model-multi-classification/multipart_spoiler_detection_model.ipynb)
-* [two-step pipeline] (statistical-model-multi-classification/two-step-transformer.py)
+* [two-step pipeline](statistical-model-multi-classification/two-step-transformer.py)
