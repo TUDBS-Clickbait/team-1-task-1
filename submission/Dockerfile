@@ -18,6 +18,6 @@ COPY requirements.txt /opt/app/
 
 RUN pip3 install -r requirements.txt
 
-COPY multi.model multipart_detection.py two-step-transformer.py /opt/app/
+COPY . /opt/app/
 
-ENTRYPOINT [ "/opt/app/two-step-transformer.py" ]
+CMD [ "/opt/app/two-step-transformer.py" ]
