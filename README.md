@@ -45,4 +45,4 @@ Relevant for submission is trhe "two-step-transformer" of approach 3. Instructio
 
 Run:
 
-1. `docker run -v ${PWD}/data:/data ghcr.io/tudbs-clickbait/team-1-task-1:two-step /opt/app/two-step-transformer.py --input=/data/validation_short.jsonl --output=/data/out.jsonl`
+1. `docker run -v ${PWD}/data:/data ghcr.io/tudbs-clickbait/team-1-task-1:two-step --input=/data/validation_short.jsonl --output=/data/out.jsonl`

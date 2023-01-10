@@ -20,4 +20,4 @@ RUN pip3 install -r requirements.txt
 
 COPY . /opt/app/
 
-CMD [ "/opt/app/two-step-transformer.py" ]
+ENTRYPOINT [ "/opt/app/two-step-transformer.py" ]
