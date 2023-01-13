@@ -54,7 +54,7 @@ def predict(df):
 
     use_cuda = torch.cuda.is_available()
     
-    model = ClassificationModel('deberta', '/opt/app/non-multi-model', use_cuda=use_cuda)
+    model = ClassificationModel('deberta', '/opt/app/non-multi-model', use_cuda=use_cuda, args={"use_multiprocessing": False})
 
     uuids = list(df_non_multi['uuid'])
     texts = list(df_non_multi['text'])
