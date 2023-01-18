@@ -3,10 +3,10 @@ import argparse
 import json
 import pandas as pd
 import numpy as np
-import multipart_features
 import pickle
-import torch
 from simpletransformers.classification import ClassificationModel
+import torch
+import multipart_features
 
 
 def parse_args():

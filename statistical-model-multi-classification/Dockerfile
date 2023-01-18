@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM pytorch/pytorch:1.13.1-cuda11.6-cudnn8-runtime
 
 RUN apt-get update && apt-get install -y git-lfs wget 
 

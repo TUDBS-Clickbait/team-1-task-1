@@ -2,7 +2,6 @@ pandas
 datasets
 transformers
 numpy
-torch
-scikit-learn
+scikit-learn==1.2.0
 simpletransformers
 nltk
